@@ -14,3 +14,7 @@ Available states
 
 .. contents::
     :local:
+
+``openvpn``
+-----------
+Installs the OpenVPN package.

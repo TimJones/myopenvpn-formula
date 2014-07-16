@@ -1,0 +1,5 @@
+## Change package to install and config dir
+openvpn:
+  lookup:
+    pkg: other-openvpn
+    conf_dir: /var/share/openvpn

@@ -1,0 +1,7 @@
+{% set openvpn = salt['grains.filter_by']({
+    'Debian': {
+        'pkg': 'openvpn',
+        'service': 'openvpn',
+        'conf_dir': '/etc/openvpn'
+    }
+}, merge=salt['pillar.get']('openvpn:lookup')) %}
