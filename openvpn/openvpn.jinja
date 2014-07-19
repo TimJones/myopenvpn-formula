@@ -1,0 +1,33 @@
+{%- set config = salt['pillar.get']('openvpn:'+name, {}) -%}
+# Managed by salt!
+# Any changes made manually to this file may be lost.
+# Config file for OpenVPN {{ name }} {{ type }}
+
+{# Mandatory options -#}
+port {{ config.get('port', 1194) }}
+proto {{ config.get('proto', 'udp') }}
+dev {{ config.get('dev', 'tun') }}
+server {{ config.get('vpn_network', '10.8.0.0') }} {{ config.get('vpn_netmask', '255.255.255.0') }}
+cipher {{ config.get('cipher', 'BF-CBC') }}
+ca {{ name }}/ca.crt
+cert {{ name }}/{{ name }}.crt
+key {{ name }}/{{ name }}.key
+{#- Default options #}
+comp-lzo
+persist-key
+persist-tun
+verb {{ config.get('verb', 3) }}
+ifconfig-pool-persist {{ name }}/ip.list
+{#- Optional options #}
+{%- if config.get('local') %}
+local {{ config.get('local') }}
+{%- endif %}
+{%- if config.get('user') %}
+user {{ config.get('user') }}
+{%- endif %}
+{%- if config.get('group') %}
+group {{ config.get('group') }}
+{%- endif %}
+{%- if config.get('keepalive_send') or config.get('keepalive_timeout') %}
+keepalive {{ config.get('keepalive_send', 10) }} {{ config.get('keepalive_timeout', 120) }}
+{%- endif %}
