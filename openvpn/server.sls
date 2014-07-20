@@ -10,6 +10,7 @@ openvpn_service:
       - pkg: openvpn
 
 {% for name, settings in salt['pillar.get']('openvpn', {}).iteritems() %}
+{% set config = salt['pillar.get']('openvpn:'+name, {}) %}
 
 openvpn_{{ name }}_ca_cert:
   file.managed: 
@@ -21,7 +22,7 @@ openvpn_{{ name }}_ca_cert:
 
 openvpn_{{ name }}_cert:
   file.managed: 
-    - name: {{ openvpn.conf_dir }}/{{ name }}/{{ name }}.crt
+    - name: {{ openvpn.conf_dir }}/{{ name }}/{{ config.get('common_name', grains['host']) }}.crt
     - contents_pillar: openvpn:{{ name }}:cert
     - makedirs: True
     - require_in:
@@ -29,7 +30,7 @@ openvpn_{{ name }}_cert:
 
 openvpn_{{ name }}_key:
   file.managed: 
-    - name: {{ openvpn.conf_dir }}/{{ name }}/{{ name }}.key
+    - name: {{ openvpn.conf_dir }}/{{ name }}/{{ config.get('common_name', grains['host']) }}.key
     - contents_pillar: openvpn:{{ name }}:key
     - makedirs: True
     - require_in:
@@ -37,7 +38,7 @@ openvpn_{{ name }}_key:
 
 openvpn_{{ name }}_dh:
   file.managed: 
-    - name: {{ openvpn.conf_dir }}/{{ name }}/dh_{{ name }}.pem
+    - name: {{ openvpn.conf_dir }}/{{ name }}/dh.pem
     - contents_pillar: openvpn:{{ name }}:dh
     - makedirs: True
     - require_in:
