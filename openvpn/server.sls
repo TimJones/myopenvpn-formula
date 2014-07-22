@@ -61,6 +61,6 @@ openvpn_{{ name }}_conf:
     - template: jinja
     - context:
         name: {{ name }}
-#    - watch_in:
-#      - service: openvpn_service
+    - watch_in:
+      - service: openvpn_service
 {% endfor %}
