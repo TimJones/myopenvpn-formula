@@ -1,23 +1,8 @@
-template formula
-================
+openvpn formula
+===============
 
-0.0.4 (2014-02-26)
-
-- Add CHANGELOG.rst
-
-
-0.0.3 (2014-02-17)
-
-- Add map.jinja
-- Use map.jinja content in init.sls
-
-
-0.0.2 (2014-02-16)
-
-- Better README extension changed from .md to .rst
-- Add link to Salt Formula documentation
-
-
-0.0.1 (2013-11-03)
+0.0.1 (2014-07-22)
 
 - Initial version
+- Basic PKI multi-client server config
+- Basic PKI client config
