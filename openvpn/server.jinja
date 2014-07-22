@@ -29,6 +29,9 @@ user {{ config.get('user') }}
 {%- if config.get('group') %}
 group {{ config.get('group') }}
 {%- endif %}
+{%- if config.get('ta_key') %}
+tls-auth {{ name }}/ta.key 0
+{%- endif %}
 {%- if config.get('keepalive_send') or config.get('keepalive_timeout') %}
 keepalive {{ config.get('keepalive_send', 10) }} {{ config.get('keepalive_timeout', 120) }}
 {%- endif %}

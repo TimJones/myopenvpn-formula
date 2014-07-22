@@ -28,3 +28,6 @@ user {{ config.get('user') }}
 {%- if config.get('group') %}
 group {{ config.get('group') }}
 {%- endif %}
+{%- if config.get('ta_key') %}
+tls-auth {{ name }}/ta.key 1
+{%- endif %}
