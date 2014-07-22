@@ -1,0 +1,30 @@
+{%- set config = salt['pillar.get']('openvpn:'+name, {}) -%}
+# Managed by salt!
+# Any changes made manually to this file may be lost.
+# Config file for OpenVPN {{ name }} client
+
+{# Mandatory options -#}
+client
+nobind
+{%- for subnet in config.get('remotes', []) %}
+  {%- if subnet.get('server') %}
+remote {{ subnet.get('server') }} {{ subnet.get('port', '1194') }}
+  {%- endif %}
+{%- endfor %}
+proto {{ config.get('proto', 'udp') }}
+dev {{ config.get('dev', 'tun') }}
+cipher {{ config.get('cipher', 'BF-CBC') }}
+ca {{ name }}/ca.crt
+cert {{ name }}/{{ config.get('common_name', grains['host']) }}.crt
+key {{ name }}/{{ config.get('common_name', grains['host']) }}.key
+{#- Default options #}
+comp-lzo
+persist-key
+persist-tun
+verb {{ config.get('verb', 3) }}
+{%- if config.get('user') %}
+user {{ config.get('user') }}
+{%- endif %}
+{%- if config.get('group') %}
+group {{ config.get('group') }}
+{%- endif %}

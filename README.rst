@@ -39,3 +39,24 @@ Example minimum Pillar:
           # Public TLS Authentication key should go here
         dh: |
           # Diffie-Helman Parameters should go here
+
+``openvpn.client``
+------------------
+Configures OpenVPN client instances using data from Pillar.
+
+Example minimum Pillar:
+
+.. code:: yaml
+
+    openvpn:
+      minimal-example: # Name of instance, must be unique per host
+        remotes:
+          - server: 123.123.123.123 # Reachable IP address of OpenVPN server
+        ca_cert: |
+          # Public CA Certificate should go here
+        cert: |
+          # Client's public certificate should go here
+        key: |
+          # Client's private key should go here
+        ta_key: |
+          # Public TLS Authentication key should go here
