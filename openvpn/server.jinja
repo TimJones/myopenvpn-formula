@@ -12,6 +12,7 @@ cipher {{ config.get('cipher', 'BF-CBC') }}
 ca {{ name }}/ca.crt
 cert {{ name }}/{{ name }}.crt
 key {{ name }}/{{ name }}.key
+dh {{ name }}/dh.pem
 {#- Default options #}
 comp-lzo
 persist-key
