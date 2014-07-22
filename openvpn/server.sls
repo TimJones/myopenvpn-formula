@@ -57,10 +57,9 @@ openvpn_{{ name }}_ta_key:
 openvpn_{{ name }}_conf:
   file.managed:
     - name: {{ openvpn.conf_dir }}/{{ name }}.conf
-    - source: salt://openvpn/openvpn.jinja
+    - source: salt://openvpn/server.jinja
     - template: jinja
     - context:
-        type: server
         name: {{ name }}
 #    - watch_in:
 #      - service: openvpn_service

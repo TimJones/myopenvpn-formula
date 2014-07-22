@@ -1,7 +1,7 @@
 {%- set config = salt['pillar.get']('openvpn:'+name, {}) -%}
 # Managed by salt!
 # Any changes made manually to this file may be lost.
-# Config file for OpenVPN {{ name }} {{ type }}
+# Config file for OpenVPN {{ name }} server
 
 {# Mandatory options -#}
 port {{ config.get('port', 1194) }}
