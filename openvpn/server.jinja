@@ -10,8 +10,8 @@ dev {{ config.get('dev', 'tun') }}
 server {{ config.get('vpn_network', '10.8.0.0') }} {{ config.get('vpn_netmask', '255.255.255.0') }}
 cipher {{ config.get('cipher', 'BF-CBC') }}
 ca {{ name }}/ca.crt
-cert {{ name }}/{{ name }}.crt
-key {{ name }}/{{ name }}.key
+cert {{ name }}/{{ config.get('common_name', grains['host']) }}.crt
+key {{ name }}/{{ config.get('common_name', grains['host']) }}.key
 dh {{ name }}/dh.pem
 {#- Default options #}
 comp-lzo
