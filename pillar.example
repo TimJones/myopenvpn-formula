@@ -46,3 +46,67 @@ openvpn:
     vpn_subnet: 255.255.0.0
     user: nobody
     group: nobody
+
+##
+## Common example
+## pillar/example-ovpn/init.sls
+openvpn:
+  example-vpn:
+    proto: udp
+    dev: tun
+    cipher: AES-256-CBC
+    user: nobody
+    group: nogroup
+    ca_cert: |
+      -----BEGIN CERTIFICATE-----
+      ... PUBLIC CERTIFICATE AUTHORITY SNIP ...
+      -----END CERTIFICATE----- 
+    ta_key: |
+      -----BEGIN OpenVPN Static key V1-----
+      ... PRIVATE KEY SNIP ...
+      -----END OpenVPN Static key V1-----
+
+## pillar/example-ovpn/server.sls
+openvpn:
+  example-vpn:
+    local: 1.1.1.1
+    keepalive_send: 5
+    keepalive_timeout: 60
+    cert: |
+      -----BEGIN CERTIFICATE-----
+      ... PUBLIC SERVER CERTIFICATE SNIP ...
+      -----END CERTIFICATE----- 
+    key: |
+      -----BEGIN PRIVATE KEY-----
+      ... PRIVATE SERVER KEY SNIP ...
+      -----END PRIVATE KEY-----
+    dh: |
+      -----BEGIN DH PARAMETERS-----
+      ... DH PARAMETERS SNIP ...
+      -----END DH PARAMETERS-----
+    
+## pillar/example-ovpn/client.sls
+openvpn:
+  example-vpn:
+    remotes:
+      - server: 1.1.1.1    # Will use default port of 1194
+      - server: 2.2.2.1    # Specify multiple remotes for failover
+        port: 6147         # Custom port can be specified per server
+    cert: |
+      -----BEGIN CERTIFICATE-----
+      ... PUBLIC CLIENT CERTIFICATE SNIP ...
+      -----END CERTIFICATE----- 
+    key: |
+      -----BEGIN PRIVATE KEY-----
+      ... PRIVATE CLIENT KEY SNIP ...
+      -----END PRIVATE KEY-----
+   
+## pillar/top.sls
+base:
+  'test-openvpn-server':
+    - example-ovpn
+    - example-ovpn.server
+  'test-openvpn-client':
+    - example-ovpn
+    - example-ovpn.client
+
