@@ -49,7 +49,7 @@ openvpn_{{ name }}_ta_key:
 openvpn_{{ name }}_conf:
   file.managed:
     - name: {{ openvpn.conf_dir }}/{{ name }}.conf
-    - source: salt://openvpn/client.jinja
+    - source: salt://openvpn/files/client.jinja
     - template: jinja
     - context:
         name: {{ name }}
