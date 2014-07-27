@@ -9,8 +9,7 @@ openvpn_service:
     - watch:
       - pkg: openvpn
 
-{% for name, settings in salt['pillar.get']('openvpn', {}).iteritems() %}
-{% set config = salt['pillar.get']('openvpn:'+name, {}) %}
+{% for name, config in salt['pillar.get']('openvpn', {}).iteritems() %}
 
 openvpn_{{ name }}_ca_cert:
   file.managed: 
@@ -44,7 +43,7 @@ openvpn_{{ name }}_dh:
     - require_in:
       - file: openvpn_{{ name }}_conf
 
-{% if settings.get('ta_key') %}
+{% if config.get('ta_key') %}
 openvpn_{{ name }}_ta_key:
   file.managed: 
     - name: {{ openvpn.conf_dir }}/{{ name }}/ta.key
