@@ -1,6 +1,11 @@
 openvpn formula
 ===============
 
+0.1.0 (2014-07-27)
+
+- Server
+  - Push routes out to client(s)
+
 0.0.1 (2014-07-22)
 
 - Initial version

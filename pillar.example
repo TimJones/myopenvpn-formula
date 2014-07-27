@@ -72,6 +72,10 @@ openvpn:
     local: 1.1.1.1
     keepalive_send: 5
     keepalive_timeout: 60
+    server_networks:
+      - network: 3.3.0.0
+        subnet: 255.255.0.0
+      - network: 4.4.4.0   # Will use default netmask 255.255.255.0
     cert: |
       -----BEGIN CERTIFICATE-----
       ... PUBLIC SERVER CERTIFICATE SNIP ...

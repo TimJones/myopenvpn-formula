@@ -110,6 +110,7 @@ Set the basic package and service options.
    "dh", "dh", "Diffie-Hellman parameters"
    "keepalive_send", "keepalive", "Interval (in seconds) to send keepalive packets", "10"
    "keepalive_timeout", "keepalive", "Interval (in seconds) before a connection without packets is considered dead", "120"
+   "server_networks", "push ""route <network> <netmask>""", "Push routes for the network(s) listed to the clients", ""
  
 ``Client``
 ----------
