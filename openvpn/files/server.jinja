@@ -35,3 +35,8 @@ tls-auth {{ name }}/ta.key 0
 {%- if config.get('keepalive_send') or config.get('keepalive_timeout') %}
 keepalive {{ config.get('keepalive_send', 10) }} {{ config.get('keepalive_timeout', 120) }}
 {%- endif %}
+{%- for subnet in config.get('server_networks', []) %}
+  {%- if subnet.get('network') %}
+push "route {{ subnet.get('network') }} {{ subnet.get('netmask', '255.255.255.0') }}"
+  {%- endif %}
+{%- endfor %}
