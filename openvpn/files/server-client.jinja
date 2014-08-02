@@ -7,3 +7,8 @@
 iroute {{ subnet.get('network') }} {{ subnet.get('netmask', '255.255.255.0') }}
   {%- endif %}
 {%- endfor %}
+{%- for subnet in config.get('server_networks', []) %}
+  {%- if subnet.get('network') %}
+push "route {{ subnet.get('network') }} {{ subnet.get('netmask', '255.255.255.0') }}"
+  {%- endif %}
+{%- endfor %}
