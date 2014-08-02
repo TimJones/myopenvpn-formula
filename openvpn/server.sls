@@ -53,6 +53,20 @@ openvpn_{{ name }}_ta_key:
       - file: openvpn_{{ name }}_conf
 {% endif %}
 
+{% for client, client_config in config.get('clients', {}).iteritems() %}
+openvpn_{{ name }}_client_{{ client }}_conf:
+  file.managed:
+    - name: {{ openvpn.conf_dir }}/{{ name }}/clients/{{ client }}
+    - source: salt://openvpn/files/server-client.jinja
+    - template: jinja
+    - context:
+        server: {{ name }}
+        name: {{ client }}
+    - makedirs: True
+    - require_in:
+      - file: openvpn_{{ name }}_conf
+{% endfor %}
+
 openvpn_{{ name }}_conf:
   file.managed:
     - name: {{ openvpn.conf_dir }}/{{ name }}.conf

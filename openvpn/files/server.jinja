@@ -40,3 +40,13 @@ keepalive {{ config.get('keepalive_send', 10) }} {{ config.get('keepalive_timeou
 push "route {{ subnet.get('network') }} {{ subnet.get('netmask', '255.255.255.0') }}"
   {%- endif %}
 {%- endfor %}
+{%- if config.get('clients') %}
+client-config-dir {{ name }}/clients
+{%- endif %}
+{%- for client in config.get('clients', {}) %}
+  {%- for subnet in config.get('client_networks', []) %}
+    {%- if subnet.get('network') %}
+route {{ subnet.get('network') }} {{ subnet.get('netmask', '255.255.255.0') }}
+    {%- endif %}
+  {%- endfor %}
+{%- endfor %}
