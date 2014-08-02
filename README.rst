@@ -111,6 +111,12 @@ Set the basic package and service options.
    "keepalive_send", "keepalive", "Interval (in seconds) to send keepalive packets", "10"
    "keepalive_timeout", "keepalive", "Interval (in seconds) before a connection without packets is considered dead", "120"
    "server_networks", "push ""route <network> <netmask>""", "Push routes for the network(s) listed to the clients", ""
+   "clients", "N\A", "Section for per-client settings. See table below."
+
+.. csv-table:: Per-clients settings for the OpenVPN server.
+   :header: "Pillar", "OpenVPN", "Description", "Default"
+
+   "client_networks", "iroute <network> <netmask>", "Define routes for the network(s) reachable via the client", ""
  
 ``Client``
 ----------
