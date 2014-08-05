@@ -14,12 +14,14 @@ cert {{ name }}/{{ config.get('common_name', grains['host']) }}.crt
 key {{ name }}/{{ config.get('common_name', grains['host']) }}.key
 dh {{ name }}/dh.pem
 {#- Default options #}
-comp-lzo
 persist-key
 persist-tun
 verb {{ config.get('verb', 3) }}
 ifconfig-pool-persist {{ name }}/ip.list
 {#- Optional options #}
+{%- if config.get('compression', True) %}
+comp-lzo
+{%- endif %}
 {%- if config.get('local') %}
 local {{ config.get('local') }}
 {%- endif %}
