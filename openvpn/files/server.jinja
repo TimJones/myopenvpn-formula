@@ -22,6 +22,9 @@ ifconfig-pool-persist {{ name }}/ip.list
 {%- if config.get('compression', True) %}
 comp-lzo
 {%- endif %}
+{%- if config.get('client_to_client', False) %}
+client-to-client
+{%- endif %}
 {%- if config.get('local') %}
 local {{ config.get('local') }}
 {%- endif %}
