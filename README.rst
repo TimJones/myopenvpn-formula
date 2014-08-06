@@ -89,6 +89,7 @@ Set the basic package and service options.
    "cipher", "cipher", "Encryption scheme", "BF-CBC"
    "ca_cert", "ca", "Contents of the Certificate Authority public certificate", ""
    "ta_key", "tls_auth", "Contents of the TLS shared secret", ""
+   "compression", "comp-lzo", "Enable compression for the VPN", "True"
 
 ``Common``
 ----------
@@ -100,6 +101,8 @@ Set the basic package and service options.
    "cert", "cert", "Contents of the host public certificate", ""
    "key", "key", "Contents of the host private key", ""
    "common_name", "", "Common name of host to match certificates", "grains['host']"
+   "log_level", "verb", "Set level of logging from silent 0-9 extremley verbose", "3"
+   "log_file", "log-append", "File to log messages. If not specified, all logging will go to syslog", ""
 
 ``Server``
 ----------
@@ -111,12 +114,17 @@ Set the basic package and service options.
    "keepalive_send", "keepalive", "Interval (in seconds) to send keepalive packets", "10"
    "keepalive_timeout", "keepalive", "Interval (in seconds) before a connection without packets is considered dead", "120"
    "server_networks", "push ""route <network> <netmask>""", "Push routes for the network(s) listed to the clients", ""
-   "clients", "N\A", "Section for per-client settings. See table below."
+   "client_to_client", "client-to-client", "Allow communication between clients connected to the VPN", "False"
+   "redirect_gateway", "push ""redirect-gateway""", "Configure all clients to redirect all default traffic to the OpenVPN server", "False"
+   "status_file", "status", "File to write the OpenVPN server status to each minute", "<conf_dir>/<vpn_name>/status"
+   "clients", "N\A", "Section for per-client settings. See table below.", ""
 
 .. csv-table:: Per-clients settings for the OpenVPN server.
    :header: "Pillar", "OpenVPN", "Description", "Default"
 
    "client_networks", "iroute <network> <netmask>", "Define routes for the network(s) reachable via the client", ""
+   "server_networks", "push ""route <network> <netmask>""", "Push routes for the network(s) listed to the client", ""
+   "redirect_gateway", "push ""redirect-gateway""", "Configures the client to redirect all default traffic to the OpenVPN server", "False"
  
 ``Client``
 ----------
