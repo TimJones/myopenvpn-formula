@@ -3,7 +3,6 @@
 # Any changes made manually to this file may be lost.
 # Config file for OpenVPN {{ name }} server
 
-{# Mandatory options -#}
 port {{ config.get('port', 1194) }}
 proto {{ config.get('proto', 'udp') }}
 dev {{ config.get('dev', 'tun') }}
@@ -13,12 +12,13 @@ ca {{ name }}/ca.crt
 cert {{ name }}/{{ config.get('common_name', grains['host']) }}.crt
 key {{ name }}/{{ config.get('common_name', grains['host']) }}.key
 dh {{ name }}/dh.pem
-{#- Default options #}
 persist-key
 persist-tun
-verb {{ config.get('verb', 3) }}
 ifconfig-pool-persist {{ name }}/ip.list
-{#- Optional options #}
+{%- if config.get('log_file') %}
+log-append {{ config.get('log_file') }}
+{%- endif %}
+verb {{ config.get('log_level', 3) }}
 {%- if config.get('compression', True) %}
 comp-lzo
 {%- endif %}

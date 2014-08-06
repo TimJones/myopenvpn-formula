@@ -67,6 +67,17 @@ openvpn_{{ name }}_client_{{ client }}_conf:
       - file: openvpn_{{ name }}_conf
 {% endfor %}
 
+{% if config.get('log_file') %}
+openvpn_{{ name }}_log:
+  file.managed:
+    - name: {{ config.get('log_file') }}
+    - user: {{ config.get('user', 'root') }}
+    - group: {{ config.get('group', 'root') }}
+    - makedirs: True
+    - require_in:
+      - file: openvpn_{{ name }}_conf
+{% endif %}
+
 openvpn_{{ name }}_conf:
   file.managed:
     - name: {{ openvpn.conf_dir }}/{{ name }}.conf
