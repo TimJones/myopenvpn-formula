@@ -19,6 +19,7 @@ ifconfig-pool-persist {{ name }}/ip.list
 log-append {{ config.get('log_file') }}
 {%- endif %}
 verb {{ config.get('log_level', 3) }}
+status {{ config.get('status_file', name+'/status') }}
 {%- if config.get('compression', True) %}
 comp-lzo
 {%- endif %}
