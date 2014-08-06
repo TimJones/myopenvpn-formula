@@ -2,6 +2,9 @@
 # Managed by salt!
 # Any changes made manually to this file may be lost.
 # Client config file for {{ name }} on OpenVPN {{ server }} server
+{%- if config.get('redirect_gateway', False) %}
+push "redirect-gateway"
+{%- endif %}
 {%- for subnet in config.get('client_networks', []) %}
   {%- if subnet.get('network') %}
 iroute {{ subnet.get('network') }} {{ subnet.get('netmask', '255.255.255.0') }}
