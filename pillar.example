@@ -71,6 +71,8 @@ openvpn:
 openvpn:
   example-vpn:
     local: 1.1.1.1
+    vpn_network: 172.16.0.0
+    vpn_netmask: 255.255.0.0
     keepalive_send: 5
     keepalive_timeout: 60
     status_file: /var/log/openvpn/example-vpn.status   # Would be /etc/openvpn/example-vpn/status by default

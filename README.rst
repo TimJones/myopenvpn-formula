@@ -110,6 +110,8 @@ Set the basic package and service options.
    :header: "Pillar", "OpenVPN", "Description", "Default"
 
    "local", "local", "Local IP address to listen on", ""
+   "vpn_network", "server", "The VPN subnet start address", "10.8.0.0"
+   "vpn_netmask", "server", "The subnet mask for the VPN subnet", "255.255.255.0"
    "dh", "dh", "Diffie-Hellman parameters"
    "keepalive_send", "keepalive", "Interval (in seconds) to send keepalive packets", "10"
    "keepalive_timeout", "keepalive", "Interval (in seconds) before a connection without packets is considered dead", "120"
