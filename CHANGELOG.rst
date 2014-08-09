@@ -1,6 +1,12 @@
 openvpn formula
 ===============
 
+0.3.2 (2014-08-09)
+
+- Server
+  - Fixed duplicate name definition of status
+  - Fixed not registering client routes
+
 0.3.1 (2014-08-06)
 
 - Client

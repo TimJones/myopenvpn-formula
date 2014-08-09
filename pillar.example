@@ -49,7 +49,7 @@ openvpn:
 
 ##
 ## Common example
-## pillar/example-ovpn/init.sls
+## pillar/example-ovpn/server.sls
 openvpn:
   example-vpn:
     proto: udp
@@ -58,18 +58,6 @@ openvpn:
     user: nobody
     group: nogroup
     compression: False        # True by default
-    ca_cert: |
-      -----BEGIN CERTIFICATE-----
-      ... PUBLIC CERTIFICATE AUTHORITY SNIP ...
-      -----END CERTIFICATE----- 
-    ta_key: |
-      -----BEGIN OpenVPN Static key V1-----
-      ... PRIVATE KEY SNIP ...
-      -----END OpenVPN Static key V1-----
-
-## pillar/example-ovpn/server.sls
-openvpn:
-  example-vpn:
     local: 1.1.1.1
     vpn_network: 172.16.0.0
     vpn_netmask: 255.255.0.0
@@ -94,6 +82,14 @@ openvpn:
 	  - network: 7.7.0.0
 	    subnet: 255.255.0.0
 	  - network: 8.8.8.0     # Will use default netmask 255.255.255.0
+    ca_cert: |
+      -----BEGIN CERTIFICATE-----
+      ... PUBLIC CERTIFICATE AUTHORITY SNIP ...
+      -----END CERTIFICATE----- 
+    ta_key: |
+      -----BEGIN OpenVPN Static key V1-----
+      ... PRIVATE KEY SNIP ...
+      -----END OpenVPN Static key V1-----
     cert: |
       -----BEGIN CERTIFICATE-----
       ... PUBLIC SERVER CERTIFICATE SNIP ...
@@ -110,10 +106,32 @@ openvpn:
 ## pillar/example-ovpn/client.sls
 openvpn:
   example-vpn:
+    proto: udp
+    dev: tun
+    cipher: AES-256-CBC
+    user: nobody
+    group: nogroup
+    compression: False        # True by default
+    ca_cert: |
+      -----BEGIN CERTIFICATE-----
+      ... PUBLIC CERTIFICATE AUTHORITY SNIP ...
+      -----END CERTIFICATE----- 
+    ta_key: |
+      -----BEGIN OpenVPN Static key V1-----
+      ... PRIVATE KEY SNIP ...
+      -----END OpenVPN Static key V1-----
     remotes:
       - server: 1.1.1.1          # Will use default port of 1194
       - server: 2.2.2.1          # Specify multiple remotes for failover
         port: 6147               # Custom port can be specified per server
+    ca_cert: |
+      -----BEGIN CERTIFICATE-----
+      ... PUBLIC CERTIFICATE AUTHORITY SNIP ...
+      -----END CERTIFICATE----- 
+    ta_key: |
+      -----BEGIN OpenVPN Static key V1-----
+      ... PRIVATE KEY SNIP ...
+      -----END OpenVPN Static key V1-----
     cert: |
       -----BEGIN CERTIFICATE-----
       ... PUBLIC CLIENT CERTIFICATE SNIP ...
@@ -126,9 +144,7 @@ openvpn:
 ## pillar/top.sls
 base:
   'test-openvpn-server':
-    - example-ovpn
     - example-ovpn.server
   'test-openvpn-client':
-    - example-ovpn
     - example-ovpn.client
 
