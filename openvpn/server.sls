@@ -80,8 +80,7 @@ openvpn_{{ name }}_log:
 
 openvpn_{{ name }}_status:
   file.managed:
-    - name: {{ config.get('status_file', name+'/status') }}
-    - name: {{ config.get('log_file') }}
+    - name: {{ config.get('status_file', openvpn.conf_dir+'/'+name+'/status') }}
     - user: {{ config.get('user', 'root') }}
     - group: {{ config.get('group', 'root') }}
     - makedirs: True
